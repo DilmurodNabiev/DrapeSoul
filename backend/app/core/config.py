@@ -50,6 +50,7 @@ class Settings(BaseSettings):
     REDIS_URL: str = "redis://localhost:6379/0"
     CORS_ORIGINS: str = "http://localhost:5173,http://localhost:3000"
     RATE_LIMIT_PER_MINUTE: int = 60
+    R2_FREE_STORAGE_GB: int = 10
 
     @property
     def cors_origins_list(self) -> List[str]:

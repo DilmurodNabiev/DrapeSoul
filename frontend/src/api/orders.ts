@@ -29,14 +29,21 @@ export async function createOrder(payload: CreateOrderPayload, receipt?: File) {
 
 export interface OrderFilters {
   page?: number
+  page_size?: number
   status?: string
   payment_method?: string
   search?: string
 }
 
 export async function fetchOrders(filters: OrderFilters = {}) {
-  const { data } = await api.get('/orders', { params: filters })
+  const { data } = await api.get('/orders', {
+    params: { page_size: 100, ...filters },
+  })
   return data
+}
+
+export async function deleteOrder(orderId: number) {
+  await api.delete(`/orders/${orderId}`)
 }
 
 export async function updateOrderStatus(orderId: number, status: string) {

@@ -19,9 +19,10 @@ from app.schemas.common import PaginatedResponse
 from app.schemas.order import OrderCreate, OrderResponse, OrderStatusUpdate
 from app.services.audit import log_audit
 from app.services.notifications import notify_new_order, notify_order_status
+from app.services.storage_stats import delete_file_url
 from app.services.telegram_verify import verify_telegram_init_data
-from app.utils.format import format_price
 from app.storage import get_storage_backend
+from app.utils.format import format_price
 from app.utils.image import compress_image, validate_image
 
 router = APIRouter(prefix="/orders", tags=["orders"])
@@ -190,7 +191,7 @@ async def create_order(
 @router.get("", response_model=PaginatedResponse[OrderResponse])
 async def list_orders(
     page: int = Query(1, ge=1),
-    page_size: int = Query(20, ge=1, le=100),
+    page_size: int = Query(50, ge=1, le=500),
     status_filter: str | None = Query(None, alias="status"),
     payment_method: str | None = None,
     search: str | None = None,
@@ -283,3 +284,35 @@ async def update_order_status(
     )
 
     return order
+
+
+@router.delete("/{order_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_order(
+    order_id: int,
+    user: AuthUser = Depends(require_permission(Permission.MANAGE_ORDERS)),
+    db: AsyncSession = Depends(get_db),
+):
+    result = await db.execute(
+        select(Order).options(selectinload(Order.items)).where(Order.id == order_id)
+    )
+    order = result.scalar_one_or_none()
+    if not order:
+        raise HTTPException(status_code=404, detail="Order not found")
+
+    receipt_url = order.payment_receipt_url
+    order_number = order.order_number
+    await db.delete(order)
+    await db.flush()
+
+    if receipt_url:
+        await delete_file_url(receipt_url)
+
+    await log_audit(
+        db,
+        action="order_deleted",
+        actor_type=user.role,
+        actor_id=str(user.id) if user.id else "owner",
+        resource_type="order",
+        resource_id=str(order_id),
+        details={"order_number": order_number, "receipt_deleted": bool(receipt_url)},
+    )
