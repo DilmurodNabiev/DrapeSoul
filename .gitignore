@@ -1,0 +1,61 @@
+# Environment & secrets (never commit real credentials)
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node
+node_modules/
+frontend/dist/
+frontend/node_modules/
+
+# User uploads & logs (products, receipts, category images)
+backend/static/uploads/**/*
+!backend/static/uploads/**/.gitkeep
+backend/logs/
+*.log
+
+# Docker / local data
+certbot/
+postgres_data/
+redis_data/
+pgdata/
+
+# SSL / SSH keys
+*.pem
+*.key
+*.p12
+id_rsa
+id_rsa.*
+*.ppk
+
+# Database & backup dumps
+*.sql
+*.sql.gz
+backups/
+
+# IDE & OS
+.idea/
+.vscode/
+.cursor/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Local dev
+.local-logs/
+.local-pids/
+tools/
+miniconda3/
+backend/.venv/
+telegram-bot/.venv/
