@@ -1,5 +1,8 @@
+import { Github } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Logo } from '../ui/Logo'
+
+const GITHUB_URL = 'https://github.com/DilmurodNabiev'
 
 export function Footer() {
   return (
@@ -29,8 +32,20 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-12 border-t border-gray-200 pt-8 text-center text-sm text-gray-400 dark:border-gray-800">
-          © {new Date().getFullYear()} DrapeSoul. All rights reserved.
+        <div className="mt-12 flex flex-col items-center gap-3 border-t border-gray-200 pt-8 dark:border-gray-800">
+          <p className="text-sm text-gray-400">© {new Date().getFullYear()} DrapeSoul. All rights reserved.</p>
+          <p className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+            Created by{' '}
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+            >
+              Dilmurod
+              <Github size={16} aria-hidden />
+            </a>
+          </p>
         </div>
       </div>
     </footer>
