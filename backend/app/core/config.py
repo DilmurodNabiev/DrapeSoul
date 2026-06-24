@@ -35,6 +35,7 @@ class Settings(BaseSettings):
     STORAGE_BACKEND: str = "local"
     UPLOAD_DIR: str = "static/uploads/products"
     CATEGORY_UPLOAD_DIR: str = "static/uploads/categories"
+    POSTER_UPLOAD_DIR: str = "static/uploads/posters"
     RECEIPTS_UPLOAD_DIR: str = "static/uploads/receipts"
     MAX_UPLOAD_MB: int = 5
     PUBLIC_MEDIA_URL: str = "http://localhost:8000/static/uploads/products"

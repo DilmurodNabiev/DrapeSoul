@@ -8,6 +8,7 @@ import { CategoriesPage } from './pages/admin/CategoriesPage'
 import { DashboardPage } from './pages/admin/DashboardPage'
 import { LogsPage } from './pages/admin/LogsPage'
 import { OrdersPage } from './pages/admin/OrdersPage'
+import { PostersPage } from './pages/admin/PostersPage'
 import { ProductsPage } from './pages/admin/ProductsPage'
 import { SystemPage } from './pages/admin/SystemPage'
 import { CartPage } from './pages/shop/CartPage'
@@ -43,6 +44,7 @@ export default function App() {
           <Route path="orders" element={<OrdersPage />} />
           <Route path="products" element={<ProductsPage />} />
           <Route path="categories" element={<CategoriesPage />} />
+          <Route path="posters" element={<PostersPage />} />
           <Route path="admins" element={<AdminsPage />} />
           <Route path="logs" element={<LogsPage />} />
           <Route path="system" element={<SystemPage />} />

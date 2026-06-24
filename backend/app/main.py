@@ -9,7 +9,7 @@ from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 
-from app.api.routes import admins, analytics, auth, categories, health, orders, products, telegram
+from app.api.routes import admins, analytics, auth, categories, health, orders, posters, products, telegram
 from app.api.routes import settings as settings_routes
 from app.core.config import get_settings
 
@@ -24,6 +24,7 @@ async def lifespan(app: FastAPI):
     upload_path = Path(settings.UPLOAD_DIR)
     upload_path.mkdir(parents=True, exist_ok=True)
     Path(settings.CATEGORY_UPLOAD_DIR).mkdir(parents=True, exist_ok=True)
+    Path(settings.POSTER_UPLOAD_DIR).mkdir(parents=True, exist_ok=True)
     Path(settings.RECEIPTS_UPLOAD_DIR).mkdir(parents=True, exist_ok=True)
     logger.info("DrapeSoul API started [%s]", settings.ENV)
     yield
@@ -63,6 +64,7 @@ api_router = FastAPI()
 app.include_router(health.router, prefix="/api")
 app.include_router(products.router, prefix="/api")
 app.include_router(categories.router, prefix="/api")
+app.include_router(posters.router, prefix="/api")
 app.include_router(orders.router, prefix="/api")
 app.include_router(telegram.router, prefix="/api")
 app.include_router(auth.router, prefix="/api")
@@ -77,6 +79,10 @@ if static_path.exists():
 categories_path = Path(settings.CATEGORY_UPLOAD_DIR)
 if categories_path.exists():
     app.mount("/static/uploads/categories", StaticFiles(directory=str(categories_path)), name="category-images")
+
+posters_path = Path(settings.POSTER_UPLOAD_DIR)
+if posters_path.exists():
+    app.mount("/static/uploads/posters", StaticFiles(directory=str(posters_path)), name="poster-images")
 
 receipts_path = Path(settings.RECEIPTS_UPLOAD_DIR)
 if receipts_path.exists():

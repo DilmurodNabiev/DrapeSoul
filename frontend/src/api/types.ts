@@ -65,6 +65,18 @@ export interface CategoryAdmin extends Category {
   is_active: boolean
 }
 
+export interface Poster {
+  id: number
+  title?: string
+  image_url: string
+  link_url?: string
+  sort_order: number
+}
+
+export interface PosterAdmin extends Poster {
+  is_active: boolean
+}
+
 export interface PaginatedResponse<T> {
   items: T[]
   total: number

@@ -1,6 +1,7 @@
 import {
   BarChart3,
   FolderOpen,
+  Image,
   LayoutDashboard,
   LogOut,
   Menu,
@@ -21,6 +22,7 @@ const navItems = [
   { to: '/admin/orders', icon: ShoppingCart, label: 'Orders', perm: 'manage_orders' },
   { to: '/admin/products', icon: Package, label: 'Products', perm: 'manage_products' },
   { to: '/admin/categories', icon: FolderOpen, label: 'Categories', perm: 'manage_products' },
+  { to: '/admin/posters', icon: Image, label: 'Posters', perm: 'manage_products' },
   { to: '/admin/admins', icon: Users, label: 'Admins', perm: 'manage_admins' },
   { to: '/admin/logs', icon: BarChart3, label: 'Logs', perm: 'view_logs' },
   { to: '/admin/system', icon: Server, label: 'System', perm: 'developer_access' },

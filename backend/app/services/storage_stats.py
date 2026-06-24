@@ -106,6 +106,7 @@ async def delete_file_url(file_url: str | None) -> bool:
         for base in [
             Path(settings.RECEIPTS_UPLOAD_DIR),
             Path(settings.CATEGORY_UPLOAD_DIR),
+            Path(settings.POSTER_UPLOAD_DIR),
             Path(settings.UPLOAD_DIR),
         ]:
             candidate = base / Path(rel).name

@@ -76,9 +76,16 @@ export function CheckoutPage() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-8 md:px-6 md:py-12">
-      <h1 className="mb-8 font-display text-3xl font-semibold">Checkout</h1>
+    <div className="animate-fade-in">
+      <div className="border-b border-brand-200/50 bg-brand-50 py-10 dark:border-gray-800 dark:bg-surface-dark md:py-14">
+        <div className="mx-auto max-w-2xl px-4 text-center md:px-6">
+          <p className="section-subheading">Complete Order</p>
+          <h1 className="section-heading mt-3">Checkout</h1>
+          <div className="luxury-divider mt-4" />
+        </div>
+      </div>
 
+      <div className="mx-auto max-w-2xl px-4 py-6 md:px-6 md:py-10">
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <p className="mb-3 text-sm font-medium">How would you like to pay?</p>
@@ -87,7 +94,7 @@ export function CheckoutPage() {
               type="button"
               onClick={() => setPaymentMethod('contact')}
               className={`card flex items-start gap-3 text-left transition-all ${
-                paymentMethod === 'contact' ? 'ring-2 ring-gray-900 dark:ring-white' : ''
+                paymentMethod === 'contact' ? 'ring-2 ring-gold-500' : ''
               }`}
             >
               <Phone size={20} className="mt-0.5 flex-shrink-0" />
@@ -100,7 +107,7 @@ export function CheckoutPage() {
               type="button"
               onClick={() => setPaymentMethod('transfer')}
               className={`card flex items-start gap-3 text-left transition-all ${
-                paymentMethod === 'transfer' ? 'ring-2 ring-gray-900 dark:ring-white' : ''
+                paymentMethod === 'transfer' ? 'ring-2 ring-gold-500' : ''
               }`}
             >
               <CreditCard size={20} className="mt-0.5 flex-shrink-0" />
@@ -234,6 +241,7 @@ export function CheckoutPage() {
           )}
         </button>
       </form>
+      </div>
     </div>
   )
 }
